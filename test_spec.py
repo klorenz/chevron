@@ -310,6 +310,21 @@ class ExpandedCoverage(unittest.TestCase):
 
         self.assertEqual(result, expected)
 
+    def test_frontmatter(self):
+        from chevron.main import main
+        from io import StringIO
+        from textwrap import dedent
+
+        result = main("-", stdin=StringIO(unicode(dedent("""
+        ---
+        name: world
+        ---
+        hello {{ name }}!
+        """))))
+
+        self.assertEqual(result, "hello world!")
+
+
 
 # Run unit tests from command line
 if __name__ == "__main__":
